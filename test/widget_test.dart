@@ -4,7 +4,7 @@ import 'package:my_project/app/app.dart';
 
 void main() {
   group("Calculator View Test", () {
-    testWidgets("Calculator Basic Test", (WidgetTester tester) async {
+    testWidgets("Calculator UI Elements Present", (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
 
       expect(find.byKey(const Key("Result")), findsOneWidget);
@@ -14,31 +14,29 @@ void main() {
       expect(find.byIcon(CupertinoIcons.minus), findsOneWidget);
       expect(find.byIcon(CupertinoIcons.multiply), findsOneWidget);
       expect(find.byIcon(CupertinoIcons.divide), findsOneWidget);
+    });
 
-      group("Operation", () async {
-        await tester.enterText(find.byKey(const Key("displayOne")), "20");
-        await tester.enterText(find.byKey(const Key("displayTwo")), "10");
+    testWidgets("Calculator Operation Test", (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
 
-        await tester.tap(find.byIcon(CupertinoIcons.add));
-        await tester.pump();
+      await tester.enterText(find.byKey(const Key("displayOne")), "20");
+      await tester.enterText(find.byKey(const Key("displayTwo")), "10");
 
-        expect(find.text("30"), findsOneWidget);
+      await tester.tap(find.byIcon(CupertinoIcons.add));
+      await tester.pump();
+      expect(find.text("30"), findsOneWidget);
 
-        await tester.tap(find.byIcon(CupertinoIcons.minus));
-        await tester.pump();
+      await tester.tap(find.byIcon(CupertinoIcons.minus));
+      await tester.pump();
+      expect(find.text("10"), findsNWidgets(2));
 
-        expect(find.text("10"), findsNWidgets(2));
+      await tester.tap(find.byIcon(CupertinoIcons.multiply));
+      await tester.pump();
+      expect(find.text("200"), findsOneWidget);
 
-        await tester.tap(find.byIcon(CupertinoIcons.multiply));
-        await tester.pump();
-
-        expect(find.text("200"), findsOneWidget);
-
-        await tester.tap(find.byIcon(CupertinoIcons.divide));
-        await tester.pump();
-
-        expect(find.text("2.0"), findsOneWidget);
-      });
+      await tester.tap(find.byIcon(CupertinoIcons.divide));
+      await tester.pump();
+      expect(find.text("2.0"), findsOneWidget);
     });
   });
 }
