@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_project/views/home_view.dart';
 
-class MYApp extends StatelessWidget {
-  const MYApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "Flutter Learn", home: HomeView());
+    return MaterialApp(
+      title: "Flutter Learn",
+      theme: ThemeData(primarySwatch: Colors.deepOrange),
+      home: HomeView(),
+    );
   }
 }
